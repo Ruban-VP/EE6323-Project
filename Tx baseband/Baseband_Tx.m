@@ -13,7 +13,7 @@ N_FFT = 2^ceil(log2(N_subcar));
 
 %% Baseband transmitter chain
 
-Tx_out = BB_chain(M,N_subcar,N_FFT,N_CP,N_OFDM_sym);
+Tx_out = BB_Tx_chain(M,N_subcar,N_FFT,N_CP,N_OFDM_sym);
 I_vals = real(Tx_out);
 Q_vals = imag(Tx_out);
 
