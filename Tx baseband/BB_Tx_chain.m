@@ -1,4 +1,4 @@
-function [Tx_out] = BB_chain(M,N_subcar,N_FFT,N_CP,N_OFDM_sym)
+function [Tx_out] = BB_Tx_chain(M,N_subcar,N_FFT,N_CP,N_OFDM_sym)
 
 N_sym = N_subcar*N_OFDM_sym;
 Bits = randi([0,1],M,N_sym);            
