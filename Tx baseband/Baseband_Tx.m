@@ -19,7 +19,10 @@ Q_vals = imag(Tx_out);
 
 %% Converting data to finite precision
 
-V_ref = 3.3;
+V_ref = 5;
 num_bits = 16;
 I_quant = Bitconvert(I_vals,V_ref,num_bits);
 Q_quant = Bitconvert(Q_vals,V_ref,num_bits);
+
+writematrix(I_quant,'Tx_I_data.txt');
+writematrix(Q_quant,'Tx_Q_data.txt');
