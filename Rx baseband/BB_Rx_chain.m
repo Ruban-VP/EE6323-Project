@@ -3,7 +3,7 @@ function [Rx_syms] = BB_Rx_chain(Tx_syms,Rx_vals,M,N_subcar,N_FFT,N_CP,N_OFDM_sy
 Rx_syms = zeros(N_subcar,N_OFDM_sym);
 
 const_vals = 0:2^M-1;
-constellation = qammod(const_vals,2^M,UnitaveragePower=true);
+constellation = qammod(const_vals,2^M,"gray",UnitaveragePower=true);
 
 Rx_vals_resh = reshape(Rx_vals,N_FFT+N_CP,N_OFDM_sym);
 IFFT_noisy_out = Rx_vals_resh(N_CP+1:end,:);
