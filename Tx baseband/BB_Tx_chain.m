@@ -1,4 +1,4 @@
-function [Tx_out] = BB_Tx_chain(M,N_subcar,N_FFT,N_CP,N_OFDM_sym)
+function [Tx_bits, Tx_syms, Tx_out] = BB_Tx_chain(M,N_subcar,N_FFT,N_CP,N_OFDM_sym)
 
 N_sym = N_subcar*N_OFDM_sym;
 Bits = randi([0,1],M,N_sym);            
@@ -18,5 +18,7 @@ X_ifft = sqrt(N_FFT)*ifft(X_shift);              % IFFT operation
 X_cp = [X_ifft(N_FFT-N_CP+1:N_FFT,:); X_ifft];   % Addition of Cyclic Prefix
 
 Tx_out = reshape(X_cp,1,(N_FFT+N_CP)*N_OFDM_sym);
+Tx_syms = Xmod_resh;
+Tx_bits = Bits;
 
 end
