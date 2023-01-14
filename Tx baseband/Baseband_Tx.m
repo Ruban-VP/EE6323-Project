@@ -14,10 +14,12 @@ fs = N_FFT*30e-3;                % Sampling frequency in MHz
 
 %% Baseband transmitter chain
 
+% Baseband Tx operations are performed
 [Tx_bits, Tx_syms, Tx_out] = BB_Tx_chain(M,N_subcar,N_FFT,N_CP,N_OFDM_sym);
-I_vals = real(Tx_out);
-Q_vals = imag(Tx_out);
+I_vals = real(Tx_out);  % In-phase data
+Q_vals = imag(Tx_out);  % Quadrature-phase data
 
+% Tx signal spectrum
 figure(1)
 pspectrum(Tx_out,fs);
 xlabel('Frequency (in MHz)');
@@ -26,13 +28,14 @@ title('PSD plot of Tx signal');
 
 %% Converting data to finite precision
 
-V_ref = 5;
-num_bits = 16;
+V_ref = 5;       % Quantization reference voltage
+num_bits = 16;   % Quantization resolution
+% I and Q signals are quantized
 I_quant = Bitconvert(I_vals,V_ref,num_bits);
 Q_quant = Bitconvert(Q_vals,V_ref,num_bits);
 
-writematrix(I_quant,'Tx_I_data.txt');
-writematrix(Q_quant,'Tx_Q_data.txt');
+writematrix(I_quant.','Tx_I_data.txt');
+writematrix(Q_quant.','Tx_Q_data.txt');
 
 %% Writing Tx bits and symbols into file for SER/BER simulation
 
