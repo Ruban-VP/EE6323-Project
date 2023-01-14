@@ -18,9 +18,9 @@ V_ref = 5;      % ADC reference voltage
 num_bits = 16;  % ADC resolution
 
 % Rx signal is obtained
-I_data = str2double(readlines('Tx_I_data.txt'));
+I_data = str2double(readlines('Rx_I_data.txt'));
 I_quant = I_data(1:end-1);
-Q_data = str2double(readlines('Tx_Q_data.txt'));
+Q_data = str2double(readlines('Rx_Q_data.txt'));
 Q_quant = Q_data(1:end-1);
 
 I_vals = Deciconvert(I_quant,V_ref,num_bits);
