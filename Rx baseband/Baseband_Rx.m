@@ -14,12 +14,13 @@ fs = N_FFT*30e-3;                % Sampling frequency in MHz
 
 %% File reading and Rx data vector creation 
 
-V_ref = 5;
-num_bits = 16;
+V_ref = 5;      % ADC reference voltage
+num_bits = 16;  % ADC resolution
 
-I_data = readlines('Tx_I_data.txt');
+% Rx signal is obtained
+I_data = str2double(readlines('Tx_I_data.txt'));
 I_quant = I_data(1:end-1);
-Q_data = readlines('Tx_Q_data.txt');
+Q_data = str2double(readlines('Tx_Q_data.txt'));
 Q_quant = Q_data(1:end-1);
 
 I_vals = Deciconvert(I_quant,V_ref,num_bits);
@@ -31,6 +32,7 @@ Rx_vals = Rx_vals.';
 Tx_syms = readmatrix('Tx_syms.csv');
 Tx_bits = readmatrix('Tx_bits.csv');
 
+% Rx signal spectrum
 figure(2)
 pspectrum(Rx_vals,fs);
 xlabel('Frequency (in MHz)');
@@ -39,18 +41,20 @@ title('PSD plot of Rx signal');
 
 %% Baseband receiver chain
 
+% Rx signal is sent through the receiver chain and information symbols are decoded
 Rx_syms = BB_Rx_chain(Tx_syms,Rx_vals,M,N_subcar,N_FFT,N_CP,N_OFDM_sym);
 
 N_sym = N_OFDM_sym*N_subcar;
 Tx_syms = reshape(Tx_syms,1,N_sym);
 Rx_syms = reshape(Rx_syms,1,N_sym);
+% Bits are decoded
 decoded_bits = qamdemod(Rx_syms,2^M,"gray","OutputType","bit",UnitAveragePower=true);
 
 error_thr = 1e-10;
-sym_mismatches = (abs(Tx_syms-Rx_syms)>error_thr);
-bit_mismatches = (Tx_bits~=decoded_bits);
-
-SER = sum(sym_mismatches)/N_sym;
-BER = sum(sum(bit_mismatches))/(M*N_sym);
+sym_mismatches = (abs(Tx_syms-Rx_syms)>error_thr);  % Symbol erros
+bit_mismatches = (Tx_bits~=decoded_bits);           % Bit errors
+ 
+SER = sum(sym_mismatches)/N_sym;                    % SER calculation
+BER = sum(sum(bit_mismatches))/(M*N_sym);           % BER calculation
 
 
