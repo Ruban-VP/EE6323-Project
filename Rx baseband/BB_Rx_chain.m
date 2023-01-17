@@ -6,7 +6,7 @@ Rx_syms = zeros(N_subcar,N_OFDM_sym);
 constellation = qammod(0:(2^M-1),2^M,"gray",UnitaveragePower=true); 
 
 Rx_vals_resh = reshape(Rx_vals,N_FFT+N_CP,N_OFDM_sym); % Serial to parallel conversion
-IFFT_noisy_out = Rx_vals_resh(N_CP+1:end,:);  % CP removal
+IFFT_noisy_out = Rx_vals_resh(N_CP+1:end,:);           % CP removal
 
 N_slots = N_OFDM_sym/14;
 for i=1:N_slots
