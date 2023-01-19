@@ -59,7 +59,7 @@ Rx_syms_resh = reshape(Rx_syms,1,N_sym);
 Rx_bits = qamdemod(Rx_syms_resh,2^M,"gray","OutputType","bit",UnitAveragePower=true);
 
 error_thr = 1e-10;
-sym_mismatches = (abs(Tx_syms_resh-Rx_syms_resh)>error_thr);  % Symbol erros
+sym_mismatches = (abs(Tx_syms_resh-Rx_syms_resh)>error_thr);  % Symbol errors
 bit_mismatches = (Tx_bits~=Rx_bits);                          % Bit errors
  
 SER = sum(sym_mismatches)/N_sym;                 % SER calculation

@@ -17,7 +17,7 @@ X_shift(kk2,:) = Xmod_resh(1:N_subcar/2,:);
 X_ifft = sqrt(N_FFT)*ifft(X_shift);                % IFFT operation 
 X_cp = [X_ifft(N_FFT-N_CP+1:N_FFT,:); X_ifft];     % Addition of Cyclic Prefix
 
-Tx_out = reshape(X_cp,1,(N_FFT+N_CP)*N_OFDM_sym);  % Paralle to serial conversion
+Tx_out = reshape(X_cp,1,(N_FFT+N_CP)*N_OFDM_sym);  % Parallel to serial conversion
 Tx_syms = Xmod_resh;
 Tx_bits = Bits;
 
